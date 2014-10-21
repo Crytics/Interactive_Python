@@ -74,7 +74,7 @@ def draw(canvas):
         ball_vel[0] -= 1
     elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)) and ((ball_pos[1] <= paddle1_pos[0][1]) or (ball_pos[1] >= paddle1_pos[1][1])):
         score1 += 1
-        ball_vel = [3, 3]
+        ball_vel = [-3, -3]
         spawn_ball()
     elif (ball_pos[0] >= (WIDTH - PAD_WIDTH - BALL_RADIUS)) and ((ball_pos[1] <= paddle2_pos[0][1]) or (ball_pos[1] >= paddle2_pos[1][1])):
         score2 += 1
