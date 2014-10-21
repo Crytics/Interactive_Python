@@ -11,7 +11,7 @@
 #Implement with: http://www.codeskulptor.org/
 
 # Implementation of classic arcade game Pong
-import simplegui
+import simplegui, random
 
 # initialize globals - pos and vel encode vertical info for paddles
 WIDTH = 1100 #600
@@ -35,6 +35,10 @@ def spawn_ball():
     ball_pos = [WIDTH / 2, HEIGHT / 2]
     paddle1_pos = [[0, (HEIGHT - PAD_HEIGHT) / 2], [0, HEIGHT - (HEIGHT - PAD_HEIGHT) / 2]]
     paddle2_pos = [[WIDTH, (HEIGHT - PAD_HEIGHT) / 2], [WIDTH, HEIGHT - (HEIGHT - PAD_HEIGHT) / 2]]
+    if random.randrange(1, 3) == 1:
+        ball_vel = [-7, -7]
+    else:
+        ball_vel = [7, -7]
 
 # define event handlers
 def key_handler(key):
@@ -89,10 +93,19 @@ def draw(canvas):
     canvas.draw_text(str(score1), (WIDTH / 3, 100), 30, 'white')
     canvas.draw_text(str(score2), (WIDTH * 2/3, 100), 30, 'white')
 
+def button_handler():
+    global score1, score2
+    #Rescore
+    score1 = 0
+    score2 = 0
+    ball_vel = [7, 7]
+    spawn_ball()
+
 # create frame
 frame = simplegui.create_frame("Pong", WIDTH, HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keyup_handler(key_handler)
+frame.add_button('Restart', button_handler)
 
 # start frame
 frame.start()
