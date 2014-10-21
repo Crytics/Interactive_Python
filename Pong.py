@@ -1,13 +1,12 @@
 ############################################
 # Pong
-# ---------------------------------
+# ------------------------------------------
 # Created by  : Adam Nguyen
 # Updated by  : Adam Nguyen
 # Created at  : 10/20/2014
 # Updated at  : xx/xx/xxxx
 # Description : Interactive Python
-#############################################
-
+############################################
 #Implement with: http://www.codeskulptor.org/
 
 # Implementation of classic arcade game Pong
@@ -31,10 +30,12 @@ paddle2_pos = [[WIDTH, (HEIGHT - PAD_HEIGHT) / 2], [WIDTH, HEIGHT - (HEIGHT - PA
 # if direction is RIGHT, the ball's velocity is upper right, else upper left
 def spawn_ball():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel, ball_pos, ball_vel # these are vectors stored as lists
+
     #Spawn settings
     ball_pos = [WIDTH / 2, HEIGHT / 2]
     paddle1_pos = [[0, (HEIGHT - PAD_HEIGHT) / 2], [0, HEIGHT - (HEIGHT - PAD_HEIGHT) / 2]]
     paddle2_pos = [[WIDTH, (HEIGHT - PAD_HEIGHT) / 2], [WIDTH, HEIGHT - (HEIGHT - PAD_HEIGHT) / 2]]
+
     if random.randrange(1, 3) == 1:
         ball_vel = [-7, -7]
     else:
@@ -43,6 +44,7 @@ def spawn_ball():
 # define event handlers
 def key_handler(key):
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
+
     # update paddle's vertical position, keep paddle on the screen
     if key == simplegui.KEY_MAP['q']:
         paddle1_pos[0][1] -= paddle1_vel
@@ -59,10 +61,12 @@ def key_handler(key):
 
 def draw(canvas):
     global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
+
     # draw mid line and gutters
     canvas.draw_line([WIDTH / 2, 0],[WIDTH / 2, HEIGHT], 1, "White")
     canvas.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
     canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
+
     # update ball
     ball_pos[0] += ball_vel[0]
     ball_pos[1] += ball_vel[1]
@@ -84,17 +88,21 @@ def draw(canvas):
         score1 += 1
         ball_vel = [7, 7]
         spawn_ball()
+
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 10, 'white')
+
     # draw paddles
     canvas.draw_polyline(paddle1_pos, 12, 'white')
     canvas.draw_polyline(paddle2_pos, 12, 'white')
+
     # draw scores
     canvas.draw_text(str(score1), (WIDTH / 3, 100), 30, 'white')
     canvas.draw_text(str(score2), (WIDTH * 2/3, 100), 30, 'white')
 
 def button_handler():
     global score1, score2
+
     #Rescore
     score1 = 0
     score2 = 0
