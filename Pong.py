@@ -20,7 +20,7 @@ BALL_RADIUS = 20
 PAD_WIDTH = 8
 PAD_HEIGHT = 150
 ball_pos = [WIDTH / 2, HEIGHT / 2]
-ball_vel = [3, 3]
+ball_vel = [7, 7]
 paddle1_vel = 75
 score1 = 0
 score2 = 0
@@ -73,12 +73,12 @@ def draw(canvas):
         ball_vel[0] = -ball_vel[0]
         ball_vel[0] -= 1
     elif (ball_pos[0] <= (PAD_WIDTH + BALL_RADIUS)) and ((ball_pos[1] <= paddle1_pos[0][1]) or (ball_pos[1] >= paddle1_pos[1][1])):
-        score1 += 1
-        ball_vel = [-3, -3]
+        score2 += 1
+        ball_vel = [-7, -7]
         spawn_ball()
     elif (ball_pos[0] >= (WIDTH - PAD_WIDTH - BALL_RADIUS)) and ((ball_pos[1] <= paddle2_pos[0][1]) or (ball_pos[1] >= paddle2_pos[1][1])):
-        score2 += 1
-        ball_vel = [3, 3]
+        score1 += 1
+        ball_vel = [7, 7]
         spawn_ball()
     # draw ball
     canvas.draw_circle(ball_pos, BALL_RADIUS, 10, 'white')
