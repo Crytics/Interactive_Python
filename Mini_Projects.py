@@ -158,3 +158,81 @@ frame.set_draw_handler(draw)
 
 frame.start()
 
+
+
+###Iterating over lists
+number = [1, 7, 2, 34, 8, 7, 2, 5, 14, 22, 93, 48, 76, 15, 7]
+
+def count_odd(numbers):
+    count = 0
+    for i in numbers:
+        if  i % 2 > 0:
+            count += 1
+    print count
+
+def count_even(numbers):
+    count = 0
+    for i in numbers:
+        if  i % 2 == 0:
+            count += 1
+    print count
+
+def check_odd(numbers):
+    for i in numbers:
+        if i % 2 == 1:
+            print True
+            break
+    print False
+
+def remove_odd(numbers):
+    remove = []
+    for i in numbers:
+        if  i % 2 > 0:
+            remove.append(i)
+    for j in remove:
+            numbers.pop(numbers.index(j))
+    print numbers
+
+
+count_odd(number)
+check_odd(number)
+count_even(number)
+remove_odd(number)
+
+
+###Loading images
+import simplegui
+
+URL = 'http://commondatastorage.googleapis.com/codeskulptor-assets/gutenberg.jpg'
+image = simplegui.load_image(URL)
+
+map_width = 1521
+map_height = 1818
+scale = 3
+can_width = map_width // scale
+can_height = map_height // scale
+mag_size = 120
+mag_pos = [can_width // 2, can_height // 2]
+
+def click(pos):
+    global mag_pos
+    mag_pos = list(pos)
+
+
+def draw(canvas):
+    canvas.draw_image(image,
+                [map_width // 2, map_height // 2], [map_width, map_height],
+                [can_width // 2, can_height // 2], [can_width, can_height])
+
+    map_center = [scale * mag_pos[0], scale * mag_pos[1]]
+    map_rectangle = [mag_size, mag_size]
+    mag_center = mag_pos
+    mag_rectangle = [mag_size, mag_size]
+    canvas.draw_image(image, map_center, map_rectangle, mag_center, mag_rectangle)
+
+
+frame = simplegui.create_frame("Map magnifier", can_width, can_height)
+
+frame.set_mouseclick_handler(click)
+frame.set_draw_handler(draw)
+frame.start()
